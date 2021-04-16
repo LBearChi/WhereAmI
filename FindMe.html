@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>test</title>
+		<meta charset="utf-8" />
+		<script>
+			function geoFindMe() {
+
+			    if (!navigator.geolocation) {
+			        output.innerHTML = "<p>瀏覽器不支援取得位置資訊的API</p>"
+			        return;
+			    }
+
+			    function success(position) {
+			        var output = document.getElementById("h1");
+
+			        var latitude = position.coords.latitude;    //緯度
+			        var longitude = position.coords.longitude;  //經度
+			        output.innerHTML = '<p>緯度: ' + latitude + '° <br>經度: ' + longitude + '°</p>';
+			    };
+			    function error() {
+			        output.innerHTML = "找不到您的位置";
+			    };
+			    navigator.geolocation.getCurrentPosition(success, error);
+			}
+		</script>
+		
+	</head>
+	<body>
+		<h1 id="h1" style="margin-left:50px">Where Am I?</h1>
+		<hr />
+        <input type="button" onclick="geoFindMe()" value="position"/>
+        <div id="out"></div>
+	</body>
+</html>
