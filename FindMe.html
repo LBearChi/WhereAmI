@@ -4,102 +4,102 @@
 		<title>test</title>
 		<meta charset="utf-8" />
 		<script>
-            // 測試用聊天室位置[緯,經]
-            var testChat = [[24.7857152, 121.0023936], [24.7859, 121.0024], [22.1234, 120.3310]];   //自己再加
+            		// 測試用聊天室位置[緯,經]
+            		var testChat = [[24.7857152, 121.0023936], [24.7859, 121.0024], [22.1234, 120.3310]];   //自己再加
 
-            // 找user位置
+            		// 找user位置
 			function geoFindMe() {
 
-			    var output = document.getElementById("h1");
+				var output = document.getElementById("h1");
 
-			    if (!navigator.geolocation) {
-			        output.innerHTML = "<p>瀏覽器不支援取得位置資訊的API</p>"
-			        return;
-			    }
+			    	if (!navigator.geolocation) {
+			        	output.innerHTML = "<p>瀏覽器不支援取得位置資訊的API</p>"
+			        	return;
+			    	}
 
-			    function success(position) {
-			        var latitude = position.coords.latitude;    //緯度
-			        var longitude = position.coords.longitude;  //經度
-			        output.innerHTML += '<p>緯度: ' + latitude + '° <br>經度: ' + longitude + '°</p>';
-			        checkChat(latitude, longitude);
-			    };
-			    function error() {
-			        output.innerHTML = "找不到您的位置";
-			    };
-			    navigator.geolocation.getCurrentPosition(success, error);
+			    	function success(position) {
+			      	  	var latitude = position.coords.latitude;    //緯度
+			        	var longitude = position.coords.longitude;  //經度
+			        	output.innerHTML += '<p>緯度: ' + latitude + '° <br>經度: ' + longitude + '°</p>';
+			        	checkChat(latitude, longitude);
+			    	};
+			    	function error() {
+			        	output.innerHTML = "找不到您的位置";
+			   	};
+			    	navigator.geolocation.getCurrentPosition(success, error);
 
 			}
 			
-            // 搜索附近聊天室
+            		// 搜索附近聊天室
 			function checkChat(latitude, longitude) {
-			    document.getElementById("findme").setAttribute("style", "display:none");
+				document.getElementById("findme").setAttribute("style", "display:none");
 
-			    var output = document.getElementById("chat");
-			    var findChat = 0;
-                // 比對user與測試用聊天室距離<5公里
-			    for(var i = 0;i<testChat.length;i++){
-			        var lan1 = testChat[i][0];
-			        var lon1 = testChat[i][1];
-			        if (distance(lan1, lon1, latitude, longitude) < 5) {
-			            findChat++;
-			        }
-			    }
+			    	var output = document.getElementById("chat");
+			    	var findChat = 0;
+                	    	// 比對user與測試用聊天室距離<5公里
+			    	for(var i = 0;i<testChat.length;i++){
+			        	var lan1 = testChat[i][0];
+			        	var lon1 = testChat[i][1];
+			        	if (distance(lan1, lon1, latitude, longitude) < 5) {
+			            		findChat++;
+			        	}
+			    	}
 			    
-			    // 有找到 -> 加入(自動?手動?)
-			    if (findChat > 0) {
-			        output.innerHTML += "找到 "+findChat+" 個聊天室<br>";
-			        document.getElementById("joinChat").setAttribute("style", "display:true");
-			    }
-                // 沒找到 -> 創建
-			    else {
-			        createChat(latitude, longitude);
-			    }
+			    	// 有找到 -> 加入(自動?手動?)
+			    	if (findChat > 0) {
+			        	output.innerHTML += "找到 "+findChat+" 個聊天室<br>";
+			        	document.getElementById("joinChat").setAttribute("style", "display:true");
+			    	}
+                		// 沒找到 -> 創建
+			    	else {
+			        	createChat(latitude, longitude);
+			    	}
 			}
 
-            // 加入
+            		// 加入
 			function joinChat() {
-			    document.getElementById("joinChat").setAttribute("style", "display:none");
+				document.getElementById("joinChat").setAttribute("style", "display:none");
 
-			    var output = document.getElementById("chat");
-			    output.innerHTML = "*****已加入聊天室*****<br>"
-			    output.innerHTML += "Somebody: Hello<br>"
-                // ......
+			    	var output = document.getElementById("chat");
+			    	output.innerHTML = "*****已加入聊天室*****<br>"
+			    	output.innerHTML += "Somebody: Hello<br>"
+                		// ......
 			}
 
-            // 創建
+            		// 創建
 			function createChat(latitude, longitude) {
 
-			    var output = document.getElementById("chat");
-                output.innerHTML = "*****已建立新的聊天室*****<br>"
-			    output.innerHTML += "{這裡沒有人，以後也不會有}<br>";
+			    	var output = document.getElementById("chat");
+                		output.innerHTML = "*****已建立新的聊天室*****<br>"
+			    	output.innerHTML += "{這裡沒有人，以後也不會有}<br>";
 
-			    testChat.push([latitude, longitude]);   //自己再加
-			    console.log(testChat);
-                // ......
+			    	testChat.push([latitude, longitude]);   //自己再加
+			    	console.log(testChat);
+                		// ......
 			}
 
-            // A點緯度 ,A點經度 ,B點緯度 ,B點經度 ,單位(K:公里,N:英里)
-            // return 距離
+            		// A點緯度 ,A點經度 ,B點緯度 ,B點經度 ,單位(K:公里,N:英里)
+            		// return 距離
 			function distance(lat1, lon1, lat2, lon2, unit) {
-			    if ((lat1 == lat2) && (lon1 == lon2)) {
-			        return 0;
-			    }
-			    else {
-			        var radlat1 = Math.PI * lat1 / 180;
-			        var radlat2 = Math.PI * lat2 / 180;
-			        var theta = lon1 - lon2;
-			        var radtheta = Math.PI * theta / 180;
-			        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-			        if (dist > 1) {
-			            dist = 1;
-			        }
-			        dist = Math.acos(dist);
-			        dist = dist * 180 / Math.PI;
-			        dist = dist * 60 * 1.1515;
-			        if (unit == "K") { dist = dist * 1.609344 }
-			        if (unit == "N") { dist = dist * 0.8684 }
-			        return dist;
-			    }
+			    	if ((lat1 == lat2) && (lon1 == lon2)) {
+			        	return 0;
+			    	}
+			    	else {
+			        	var radlat1 = Math.PI * lat1 / 180;
+			        	var radlat2 = Math.PI * lat2 / 180;
+			        	var theta = lon1 - lon2;
+			        	var radtheta = Math.PI * theta / 180;
+			        	var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+			        	if (dist > 1) {
+			        	    	dist = 1;
+			        	}
+			        	dist = Math.acos(dist);
+			        	dist = dist * 180 / Math.PI;
+			        	dist = dist * 60 * 1.1515;
+			        	if (unit == "K") { dist = dist * 1.609344 }
+			        	if (unit == "N") { dist = dist * 0.8684 }
+			        	return dist;
+			    	}
 			}
 		</script>
 		
@@ -107,8 +107,8 @@
 	<body>
 		<h1 id="h1" style="margin-left:50px">Where Am I?</h1>
 		<hr />
-        <input type="button" onclick="geoFindMe()" value="position" id="findme"/>
-        <input type="button" onclick="joinChat()" value="join" id="joinChat" style="display:none;"/>
-        <div id="chat"></div>
+        	<input type="button" onclick="geoFindMe()" value="position" id="findme"/>
+        	<input type="button" onclick="joinChat()" value="join" id="joinChat" style="display:none;"/>
+        	<div id="chat"></div>
 	</body>
 </html>
