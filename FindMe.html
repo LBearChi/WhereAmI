@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<script>
             		// 測試用聊天室位置[緯,經]
-            		var testChat = [[24.7857152, 121.0023936], [24.7859, 121.0024], [22.1234, 120.3310]];   //自己再加
+            		var testChat = [[24.7857152, 121.0023936], [24.7859, 121.0024], [22.1234, 120.3310]];	//讀資料庫
 
             		// 找user位置
 			function geoFindMe() {
@@ -60,6 +60,7 @@
 			function joinChat() {
 				document.getElementById("joinChat").setAttribute("style", "display:none");
 
+				//測試用文字
 			    	var output = document.getElementById("chat");
 			    	output.innerHTML = "*****已加入聊天室*****<br>"
 			    	output.innerHTML += "Somebody: Hello<br>"
@@ -68,12 +69,13 @@
 
             		// 創建
 			function createChat(latitude, longitude) {
-
+				
+				//測試用文字
 			    	var output = document.getElementById("chat");
                 		output.innerHTML = "*****已建立新的聊天室*****<br>"
 			    	output.innerHTML += "{這裡沒有人，以後也不會有}<br>";
 
-			    	testChat.push([latitude, longitude]);   //自己再加
+			    	testChat.push([latitude, longitude]);   //存進資料庫
 			    	console.log(testChat);
                 		// ......
 			}
