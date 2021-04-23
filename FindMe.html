@@ -40,7 +40,8 @@
 			    	for(var i = 0;i<testChat.length;i++){
 			        	var lan1 = testChat[i][0];
 			        	var lon1 = testChat[i][1];
-			        	if (distance(lan1, lon1, latitude, longitude) < 5) {
+					dis = 2.5; //距離dis(km)內的範圍
+			        	if (distance(lan1, lon1, latitude, longitude) < dis) {
 			            		findChat++;
 			        	}
 			    	}
@@ -80,9 +81,9 @@
                 		// ......
 			}
 
-            		// A點緯度 ,A點經度 ,B點緯度 ,B點經度 ,單位(K:公里,N:英里)
+            		// A點緯度 ,A點經度 ,B點緯度 ,B點經度
             		// return 距離
-			function distance(lat1, lon1, lat2, lon2, unit) {
+			function distance(lat1, lon1, lat2, lon2) {
 			    	if ((lat1 == lat2) && (lon1 == lon2)) {
 			        	return 0;
 			    	}
@@ -98,8 +99,7 @@
 			        	dist = Math.acos(dist);
 			        	dist = dist * 180 / Math.PI;
 			        	dist = dist * 60 * 1.1515;
-			        	if (unit == "K") { dist = dist * 1.609344 }
-			        	if (unit == "N") { dist = dist * 0.8684 }
+			        	dist = dist * 1.609344;
 			        	return dist;
 			    	}
 			}
