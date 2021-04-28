@@ -6,7 +6,7 @@
 		<script>
             		// 測試用聊天室位置[緯,經]
             		var testChat = [[24.7857152, 121.0023936], [24.7859, 121.0024], [22.1234, 120.3310]];	//讀資料庫
-			// 資料庫需要存 1.位置 2.人數 3.創建時間 (4.暱稱(ID?))?
+			// 資料庫需要存 1.位置 2.創建時間 (3.人數 4.暱稱(ID?))
 
             		// 找user位置
 			function geoFindMe() {
@@ -43,7 +43,7 @@
 			        	var lon1 = testChat[i][1];
 					dis = 2.5; //距離dis(km)內的範圍
 			        	if (distance(lan1, lon1, userLatitude, userLongitude) < dis) {
-						// if創建時間<?分鐘
+						// if(創建時間<?分鐘)
 			            		findChat++;
 			        	}
 			    	}
