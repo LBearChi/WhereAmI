@@ -6,6 +6,7 @@
 		<script>
             		// 測試用聊天室位置[緯,經]
             		var testChat = [[24.7857152, 121.0023936], [24.7859, 121.0024], [22.1234, 120.3310]];	//讀資料庫
+			// 資料庫需要存 1.位置 2.人數 3.創建時間 (4.暱稱(ID?))?
 
             		// 找user位置
 			function geoFindMe() {
@@ -37,16 +38,19 @@
 			    	var output = document.getElementById("chat");
 			    	var findChat = 0;
                 	    	// 比對user與測試用聊天室距離<5公里
-			    	for(var i = 0;i<testChat.length;i++){
+			    	for(var i = 0;i<testChat.length;i++){			//讀資料庫
 			        	var lan1 = testChat[i][0];
 			        	var lon1 = testChat[i][1];
 					dis = 2.5; //距離dis(km)內的範圍
 			        	if (distance(lan1, lon1, userLatitude, userLongitude) < dis) {
+						// if創建時間<?分鐘
 			            		findChat++;
 			        	}
 			    	}
-			    
+			    	
 			    	// 有找到 -> 加入(自動?手動?)
+				// 自動 -> 優先選擇人少且創建時間小於?分鐘，相同人數時選擇創建時間小的
+				// 手動 -> 列出所有創建時間小於?分鐘，並顯示其中人數
 			    	if (findChat > 0) {
 			        	output.innerHTML += "找到 "+findChat+" 個聊天室<br>";
 			        	document.getElementById("joinChat").setAttribute("style", "display:true");
